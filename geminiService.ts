@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 
 const SYSTEM_INSTRUCTION = `
@@ -21,8 +22,13 @@ Fii concis.
 
 export async function getGeminiResponse(userPrompt: string, history: { role: 'user' | 'model', parts: { text: string }[] }[] = []) {
   try {
+    const apiKey = process.env.API_KEY;
+    if (!apiKey) {
+      throw new Error("API Key is missing from process.env");
+    }
+
     // Initialize GoogleGenAI using named parameter and direct process.env.API_KEY access as required by guidelines.
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey });
     
     // Call generateContent with both model name and prompt/contents in a single call.
     const response = await ai.models.generateContent({
@@ -34,7 +40,6 @@ export async function getGeminiResponse(userPrompt: string, history: { role: 'us
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
         temperature: 0.7,
-        // Removed maxOutputTokens to prevent the response from being blocked due to thinking token consumption on Gemini 3 models.
       },
     });
 
