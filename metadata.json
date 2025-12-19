@@ -1,0 +1,7 @@
+{
+  "name": "Titiconst - Construcții Bacău",
+  "description": "Website profesional pentru compania de construcții Titiconst din Bacău, oferind servicii de construcții civile și industriale, reabilitări și amenajări exterioare.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
